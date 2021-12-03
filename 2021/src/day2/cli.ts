@@ -1,17 +1,20 @@
-import { Command } from 'commander';
+import { Argv } from 'yargs';
 import chalk from 'chalk';
 import { readData, getPosition, getPositionAndAim } from './utils/utils';
 
-export const addDay2Commands = (program: Command): void => {
-  program
-    .command('day2-part1')
-    .description('Calculate the position from the directions')
-    .option(
-      '-f, --file <value>',
-      'the file to read containing the data, one by line'
-    )
-    .option('--cwd <value>', 'the working directory', process.cwd())
-    .action(async (args: { file?: string; cwd?: string }) => {
+export const addCommands = (program: Argv): Argv => {
+  program.command(
+    'day2-part1',
+    'Calculate the position from the directions',
+    {
+      file: {
+        alias: 'f',
+        type: 'string',
+        describe: 'the file to read containing the data, one by line',
+      },
+      cwd: { type: 'string', describe: 'the working directory' },
+    },
+    async (args: { file?: string; cwd?: string }) => {
       if (!args.file) {
         throw new Error('Missing file path');
       }
@@ -26,17 +29,25 @@ export const addDay2Commands = (program: Command): void => {
           }`
         )
       );
-    });
+    }
+  );
 
-  program
-    .command('day2-part2')
-    .description('Calculate the position from the directions')
-    .option(
-      '-f, --file <value>',
-      'the file to read containing the data, one by line'
-    )
-    .option('--cwd <value>', 'the working directory', process.cwd())
-    .action(async (args: { file?: string; cwd?: string }) => {
+  program.command(
+    'day2-part2',
+    'Calculate the position from the directions',
+    {
+      file: {
+        alias: 'f',
+        type: 'string',
+        describe: 'the file to read containing the data, one by line',
+      },
+      cwd: {
+        type: 'string',
+        describe: 'the working directory',
+        default: process.cwd(),
+      },
+    },
+    async (args: { file?: string; cwd?: string }) => {
       if (!args.file) {
         throw new Error('Missing file path');
       }
@@ -51,5 +62,8 @@ export const addDay2Commands = (program: Command): void => {
           }`
         )
       );
-    });
+    }
+  );
+
+  return program;
 };

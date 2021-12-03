@@ -1,10 +1,12 @@
-import { Command } from 'commander';
-import { addDay1Commands } from './day1/cli';
-import { addDay2Commands } from './day2/cli';
+#!/usr/bin/env node
 
-const program = new Command();
+import { scriptName } from 'yargs';
+import { addCommands as day1 } from './day1/cli';
+import { addCommands as day2 } from './day2/cli';
 
-addDay1Commands(program);
-addDay2Commands(program);
+const program = scriptName('advent-of-code');
 
-program.parse();
+day1(program);
+day2(program);
+
+program.completion().help().parse();
