@@ -1,12 +1,18 @@
 import { Argv } from 'yargs';
 import chalk from 'chalk';
-import { getPosition, getPositionAndAim, parseData } from './utils/utils';
 import { readData } from '../helpers/file/file';
+import {
+  getCO2,
+  getGamma,
+  getEpsilon,
+  getOxygen,
+  getScores,
+} from './utils/utils';
 
 export const addCommands = (program: Argv): Argv => {
   program.command(
-    'day2-part1',
-    'Calculate the position from the directions',
+    'day3-part1',
+    'Get the Gamma and Epsilon',
     {
       file: {
         alias: 'f',
@@ -21,21 +27,22 @@ export const addCommands = (program: Argv): Argv => {
       }
 
       const data = await readData(args.file, { cwd: args.cwd });
-      const position = getPosition(parseData(data));
+      const scores = getScores(data);
+      const gamma = getGamma(scores);
+      const epsilon = getEpsilon(scores);
+
       console.log(
         'Result is ... ',
         chalk.blueBright(
-          `${position.horizontal} * ${position.depth} = ${
-            position.horizontal * position.depth
-          }`
+          `(Gamma) ${gamma} * (Epsilon) ${epsilon} = ${gamma * epsilon}`
         )
       );
     }
   );
 
   program.command(
-    'day2-part2',
-    'Calculate the position from the directions',
+    'day3-part2',
+    'Get the oxygen and the CO2',
     {
       file: {
         alias: 'f',
@@ -52,16 +59,12 @@ export const addCommands = (program: Argv): Argv => {
       if (!args.file) {
         throw new Error('Missing file path');
       }
-
       const data = await readData(args.file, { cwd: args.cwd });
-      const position = getPositionAndAim(parseData(data));
+      const oxygen = getOxygen(data);
+      const co2 = getCO2(data);
       console.log(
         'Result is ... ',
-        chalk.blueBright(
-          `${position.horizontal} * ${position.depth} = ${
-            position.horizontal * position.depth
-          }`
-        )
+        chalk.blueBright(`(oxygen) ${oxygen} * (co2) ${co2} = ${oxygen * co2}`)
       );
     }
   );

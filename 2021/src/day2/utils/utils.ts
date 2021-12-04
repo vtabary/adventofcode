@@ -1,6 +1,3 @@
-import { promises } from 'fs';
-import { resolve } from 'path';
-
 interface IDirection {
   direction: 'forward' | 'down' | 'up';
   distance: number;
@@ -11,16 +8,8 @@ const DIRECTIONS = ['forward', 'down', 'up'];
 /**
  * Read data file
  */
-export const readData = async (
-  filePath: string,
-  options: { cwd?: string } = {}
-): Promise<IDirection[]> => {
-  const content = await promises.readFile(
-    resolve(options.cwd || process.cwd(), filePath),
-    'utf-8'
-  );
-  return content
-    .split('\n')
+export const parseData = (lines: string[]): IDirection[] => {
+  return lines
     .map(readLine)
     .filter(
       (

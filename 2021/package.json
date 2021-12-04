@@ -5,9 +5,10 @@
   "main": "index.js",
   "scripts": {
     "prebuild": "rm -Rf dist",
-    "build": "tsc",
+    "build": "tsc -p tsconfig.build.json",
     "test": "jest",
-    "start": "node ./dist/index.js"
+    "start": "node ./dist/index.js",
+    "dev": "ts-node --project tsconfig.build.json ./src/index.ts"
   },
   "keywords": [],
   "author": "",
@@ -28,6 +29,7 @@
     "typescript": "^4.5.2"
   },
   "dependencies": {
+    "@types/node": "^16",
     "chalk": "^4.0.0",
     "yargs": "^17.3.0"
   }

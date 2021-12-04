@@ -1,4 +1,23 @@
-import { countDualIncrease, prepareTripleIncrease, sum } from './utils';
+import {
+  countDualIncrease,
+  parseData,
+  prepareTripleIncrease,
+  sum,
+} from './utils';
+
+describe('parseData', () => {
+  it('should support an empty array', () => {
+    expect(parseData([])).toEqual([]);
+  });
+
+  it('should parse the numbers', () => {
+    expect(parseData(['42', '145', '0'])).toEqual([42, 145, 0]);
+  });
+
+  it('should exclude invalid value', () => {
+    expect(parseData(['42', 'abc'])).toEqual([42]);
+  });
+});
 
 describe('countDualIncrease', () => {
   it('should support an empty array of data', () => {

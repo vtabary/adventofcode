@@ -1,4 +1,36 @@
-import { getPosition, getPositionAndAim, readLine } from './utils';
+import { getPosition, getPositionAndAim, readLine, parseData } from './utils';
+
+describe('parseData', () => {
+  it('should support an empty array', () => {
+    expect(parseData([])).toEqual([]);
+  });
+
+  it('should return the directions', () => {
+    expect(parseData(['down 10', 'up 8', 'forward 7'])).toEqual([
+      {
+        direction: 'down',
+        distance: 10,
+      },
+      {
+        direction: 'up',
+        distance: 8,
+      },
+      {
+        direction: 'forward',
+        distance: 7,
+      },
+    ]);
+  });
+
+  it('should exclude invalid directions', () => {
+    expect(parseData(['down 10', 'other 8', 'forward a'])).toEqual([
+      {
+        direction: 'down',
+        distance: 10,
+      },
+    ]);
+  });
+});
 
 describe('readLine', () => {
   it('should support an empty string', () => {

@@ -1,21 +1,8 @@
-import { promises } from 'fs';
-import { resolve } from 'path';
-
 /**
  * Read data file
  */
-export const readData = async (
-  filePath: string,
-  options: { cwd?: string } = {}
-): Promise<number[]> => {
-  const content = await promises.readFile(
-    resolve(options.cwd || process.cwd(), filePath),
-    'utf-8'
-  );
-  return content
-    .split('\n')
-    .map((line) => parseInt(line))
-    .filter((item) => !isNaN(item));
+export const parseData = (lines: string[]): number[] => {
+  return lines.map((line) => parseInt(line)).filter((item) => !isNaN(item));
 };
 
 export const countDualIncrease = (data: number[]): number => {

@@ -1,9 +1,10 @@
 import chalk from 'chalk';
 import { Argv } from 'yargs';
+import { readData } from '../helpers/file/file';
 import {
   countDualIncrease,
   prepareTripleIncrease,
-  readData,
+  parseData,
 } from './utils/utils';
 
 export const addCommands = (program: Argv): Argv => {
@@ -28,7 +29,10 @@ export const addCommands = (program: Argv): Argv => {
       }
 
       const data = await readData(args.file, { cwd: args.cwd });
-      console.log('Result is ... ', chalk.blueBright(countDualIncrease(data)));
+      console.log(
+        'Result is ... ',
+        chalk.blueBright(countDualIncrease(parseData(data)))
+      );
     }
   );
 
@@ -55,7 +59,9 @@ export const addCommands = (program: Argv): Argv => {
       const data = await readData(args.file, { cwd: args.cwd });
       console.log(
         'Result is ... ',
-        chalk.blueBright(countDualIncrease(prepareTripleIncrease(data)))
+        chalk.blueBright(
+          countDualIncrease(prepareTripleIncrease(parseData(data)))
+        )
       );
     }
   );
